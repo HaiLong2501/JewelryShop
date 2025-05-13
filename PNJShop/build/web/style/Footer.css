@@ -1,0 +1,103 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 9, 2025, 12:08:06 AM
+    Author     : Hai Long
+*/
+/* FOOTER  */
+.footerTop {
+  height: 1px;
+  background-color: #707070;
+  max-width: 1200px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footerContent {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.logoPNJ img {
+  width: 200px;
+}
+.detailContent {
+  display: flex;
+  align-items: start;
+  padding-bottom: 20px;
+}
+.detailContent p {
+  color: rgba(0, 0, 0, 0.653);
+  font-size: 14px;
+  line-height: 25px;
+}
+.detailContent ul li {
+  color: rgba(0, 0, 0, 0.653);
+  font-size: 14px;
+  list-style: none;
+  line-height: 27px;
+}
+.detailContent h2 {
+  font-size: 14px;
+}
+.infoPNJ {
+  width: 30%;
+}
+.infoPNJ a {
+  text-decoration: none;
+  color: blue;
+}
+.infoPNJ .certificate {
+  margin-top: 20px;
+}
+.infoPNJ .contact {
+  margin-top: 20px;
+}
+.aboutPNJ a {
+  text-decoration: none;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.725);
+}
+.servicePNJ {
+  margin: 0 30px;
+}
+.servicePNJ a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.705);
+}
+
+.contactPNJ .socialPNJ img {
+  max-height: 35px;
+  max-width: 35px;
+  margin: 15px 3px;
+}
+.footerChild {
+  display: flex;
+  max-width: 1200px;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+.footerChild h2 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.paymentPNJ {
+  margin-right: 50px;
+  margin-left: 500px;
+}
+.paymentPNJ .img_paymentPNJ {
+  display: flex;
+  margin-left: 5px;
+}
+.paymentPNJ img {
+  max-height: 35px;
+  max-width: 35px;
+  padding-right: 5px;
+}
+.certificationPNJ img {
+  max-height: 40px;
+  max-width: 100px;
+}
+

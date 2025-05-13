@@ -1,0 +1,267 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 18, 2025, 9:24:18 PM
+    Author     : Hai Long
+*/
+
+.ads-top{
+    text-align: center;
+}
+
+.info-top{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0px 40px;
+}
+
+.info-top a{
+    color: black;
+
+}
+
+.info-top-left{
+    display: flex;
+    gap: 10px;
+}
+
+.info-top-left a{
+    display: flex;
+    text-decoration: none;
+}
+
+.info-top-mid img{
+    width: 88px;
+    height: 38.7px;
+}
+
+.info-top-left a img{
+    width: 19px;
+    height: 18.97px;
+}
+
+.info-top-right{
+    display: flex;
+    gap: 10px;
+}
+
+.info-top-right a{
+    display: flex;
+    text-decoration: none;
+}
+
+.info-top-right a img{
+    width: 15.3167px;
+    height: 18.9833px;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+    margin:  15px 160px;
+}
+
+.nav-bar .menu{
+    padding: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    list-style: none;
+    margin: 0px;
+}
+
+.nav-bar li a{
+    text-decoration: none;
+    color: black;
+    padding: 10px 0px;
+}
+
+.search-product{
+    height: 100%;
+    width: 35%;
+    display: flex;
+    padding: 5px 0px;
+    background-color: rgba(76, 76, 76, 0.1);
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.search-product input{
+    background: transparent;
+    border: none;
+    color: #707070;
+    font-size: 13px;
+    width: 80%;
+    height: 25px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-product button {
+    background: transparent;
+    border: none;
+    padding-right: 0px;
+    cursor: pointer;
+}
+.search-product img {
+    vertical-align: middle;
+}
+
+.menu-detail{
+    display: none;
+    padding: 0px;
+}
+
+.menu-detail li{
+    list-style: none;
+}
+
+.menu-title{
+    width: 25%;
+    position: relative;
+}
+
+.menu-title:hover > a{
+    color: #C48E52;
+    padding: 5px 0px;
+}
+
+.menu-title:hover .menu-detail{
+    display: block;
+    
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+}
+
+.menu-detail li{
+        padding: 10px 10px 5px 15px;
+}
+
+.menu-detail a:hover{
+    color: #C48E52;
+}
+
+.menu-title > a{
+    position: relative;
+}
+
+.menu-title > a::before{
+    content: "";
+    height: 2px;
+    width: 0px;
+    background: #C48E52;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.menu-title:hover > a::before{
+    width: 100%;
+}
+
+/* FOOTER  */
+.footerTop {
+  height: 1px;
+  background-color: #707070;
+  max-width: 1200px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footerContent {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.logoPNJ img {
+  width: 200px;
+}
+.detailContent {
+  display: flex;
+  align-items: start;
+  padding-bottom: 20px;
+}
+.detailContent p {
+  color: rgba(0, 0, 0, 0.653);
+  font-size: 14px;
+  line-height: 25px;
+}
+.detailContent ul li {
+  color: rgba(0, 0, 0, 0.653);
+  font-size: 14px;
+  list-style: none;
+  line-height: 27px;
+}
+.detailContent h2 {
+  font-size: 14px;
+}
+.infoPNJ {
+  width: 30%;
+}
+.infoPNJ a {
+  text-decoration: none;
+  color: blue;
+}
+.infoPNJ .certificate {
+  margin-top: 20px;
+}
+.infoPNJ .contact {
+  margin-top: 20px;
+}
+.aboutPNJ a {
+  text-decoration: none;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.725);
+}
+.servicePNJ {
+  margin: 0 30px;
+}
+.servicePNJ a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.705);
+}
+
+.contactPNJ .socialPNJ img {
+  max-height: 35px;
+  max-width: 35px;
+  margin: 15px 3px;
+}
+.footerChild {
+  display: flex;
+  max-width: 1200px;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+.footerChild h2 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.paymentPNJ {
+  margin-right: 50px;
+  margin-left: 500px;
+}
+.paymentPNJ .img_paymentPNJ {
+  display: flex;
+  margin-left: 5px;
+}
+.paymentPNJ img {
+  max-height: 35px;
+  max-width: 35px;
+  padding-right: 5px;
+}
+.certificationPNJ img {
+  max-height: 40px;
+  max-width: 100px;
+}
+

@@ -1,0 +1,27 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 12, 2025, 8:32:03 AM
+    Author     : Hai Long
+*/
+
+.register-content{
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+.class-fluid{
+    width: 100%;
+}
+
+.error{
+    color: red;
+    margin-bottom: 20px;
+}
+
+.btn-primary{
+    padding: 10px 20px;
+}
+

@@ -1,0 +1,530 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 1, 2025, 9:27:54 PM
+    Author     : Hai Long
+*/
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+/*css header*/
+.ads-top{
+    text-align: center;
+}
+
+.info-top{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0px 40px;
+}
+
+.info-top a{
+    color: black;
+
+}
+
+.info-top-left{
+    display: flex;
+    gap: 10px;
+}
+
+.info-top-left a{
+    display: flex;
+    text-decoration: none;
+}
+
+.info-top-mid img{
+    width: 88px;
+    height: 38.7px;
+}
+
+.info-top-left a img{
+    width: 19px;
+    height: 18.97px;
+}
+
+.info-top-right{
+    display: flex;
+    gap: 10px;
+}
+
+.info-top-right a{
+    display: flex;
+    text-decoration: none;
+}
+
+.info-top-right a img{
+    width: 15.3167px;
+    height: 18.9833px;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+    margin:  15px 160px;
+}
+
+.nav-bar .menu{
+    padding: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    list-style: none;
+    margin: 0px;
+}
+
+.nav-bar li a{
+    text-decoration: none;
+    color: black;
+    padding: 10px 0px;
+}
+
+.search-product{
+    height: 100%;
+    width: 35%;
+    display: flex;
+    padding: 5px 0px;
+    background-color: rgba(76, 76, 76, 0.1);
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.search-product input{
+    background: transparent;
+    border: none;
+    color: #707070;
+    font-size: 13px;
+    width: 80%;
+    height: 25px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-product button {
+    background: transparent;
+    border: none;
+    padding-right: 0px;
+    cursor: pointer;
+}
+.search-product img {
+    vertical-align: middle;
+}
+
+.menu-detail{
+    display: none;
+    padding: 0px;
+}
+
+.menu-detail li{
+    list-style: none;
+}
+
+.menu-title{
+    width: 25%;
+    position: relative;
+}
+
+.menu-title:hover > a{
+    color: #C48E52;
+    padding: 5px 0px;
+}
+
+.menu-title:hover .menu-detail{
+    display: block;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+}
+
+.menu-detail li{
+    padding: 10px 10px 5px 15px;
+}
+
+.menu-detail a:hover{
+    color: #C48E52;
+}
+
+.menu-title > a{
+    position: relative;
+}
+
+.menu-title > a::before{
+    content: "";
+    height: 2px;
+    width: 0px;
+    background: #C48E52;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.menu-title:hover > a::before{
+    width: 100%;
+}
+
+/*css title*/
+.title{
+    color:#003468;
+    text-align: center;
+    margin: 50px 0px;
+}
+
+/*css banner */
+.carousel {
+    position: relative;
+    z-index: 0;
+}
+
+.banner{
+    margin: 20px 0px;
+}
+
+.w-100{
+    width: 100%;
+}
+
+/*css service*/
+
+.service {
+    clear: both;
+}
+
+.service{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.service-item{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: #F2F2F2;
+    width: 300px;
+    border-radius: 15px;
+}
+
+.service-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* css suggestion */
+
+.suggest{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.suggest-item{
+    text-align: center;
+}
+
+.suggest-item a{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.suggest-item img{
+    border-radius: 10px;
+}
+
+/* css brand */
+
+.brand{
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+.swiper-slide{
+    text-align: center;
+}
+
+.swiper-slide img{
+    width: 368px;
+    height: 368px;
+    border-radius: 20px;
+}
+
+.swiper-button-prev, .swiper-button-next{
+    background-color: #EEEFF3;
+    border-radius: 20px;
+}
+
+.swiper-button-prev{
+    left: -3px;
+}
+
+.swiper-button-next{
+    right: -3px;
+}
+
+.swiper-button-prev:after,.swiper-rtl .swiper-button-next:after, .swiper-button-next:after, .swiper-rtl .swiper-button-prev:after{
+    color: black;
+    font-size: 15px;
+}
+.swiper-pagination-bullet {
+    background-color: white;
+    opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: grey; /* Màu vàng PNJ */
+    opacity: 1;
+}
+
+/*css dòng hàng */
+.productLine-img img{
+    width: 397px;
+    height: 397px;
+    border-radius: 5px;
+}
+
+.productLine-content{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.productLine-title{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    height: 240px;
+    width: 715px;
+}
+
+.prodLine-banner{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.more{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.more > a{
+    padding: 10px 15px;
+    background-color: #004B8D;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    
+}
+
+.more>a:hover{
+    background-color: white;
+    color: #004B8D;
+    border: 1px solid #004B8D;
+}
+
+.productLine-detail{
+    height: 28.5px;
+    padding: 20px;
+    border: 0.8px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color: #003468;
+    cursor: pointer;
+}
+
+.productLine-detail.active{
+    background-color: #003468;
+    color: white;
+    cursor: pointer;
+}
+
+/* css products */
+
+.products .product-img img{
+    height: 168px;
+    width: 168px;
+}
+
+.product-content{
+    display: flex;
+    align-items: center;
+    max-width: 1100px;
+    height: 400px;
+    margin: 0px auto;
+    border-radius: 5px;
+    background-image: url(../images/backgrounds/background_list_product.png);
+}
+
+.product-content p{
+    text-align: center;
+}
+
+.product-content .swiper-scrollbar{
+    display: none;
+}
+
+.product-content .swiper-slide{
+    background-color: #F7F7F7;
+    box-shadow: 1px 2px 0px 1px grey;
+    width: 250px;
+    height: 380px;
+    border-radius: 10px;
+}
+
+.product-content #swiper_Product{
+    padding: 0px 15px;
+}
+
+.products-detail{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.products-detail .product-name{
+    margin-top: 30px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.products-detail .price{
+    margin-bottom: 10px;
+    color: chocolate;
+    
+}
+
+.products-detail .product-price{
+    color: grey;font-style: italic;
+}
+
+.address{
+    text-align: center;
+    margin: 50px;
+}
+
+.address img{
+    height: 130px;
+    width: 1100px;
+}
+
+.ads{
+    text-align: center;
+    margin: 30px 0px;
+}
+
+/* css footer */
+.footerTop {
+    height: 1px;
+    background-color: #707070;
+    max-width: 1200px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.footerContent {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+.logoPNJ img {
+    width: 200px;
+}
+.detailContent {
+    display: flex;
+    align-items: start;
+    padding-bottom: 20px;
+}
+.detailContent p {
+    color: rgba(0, 0, 0, 0.653);
+    font-size: 14px;
+    line-height: 25px;
+}
+.detailContent ul li {
+    color: rgba(0, 0, 0, 0.653);
+    font-size: 14px;
+    list-style: none;
+    line-height: 27px;
+}
+.detailContent h2 {
+    font-size: 14px;
+}
+.infoPNJ {
+    width: 30%;
+}
+.infoPNJ a {
+    text-decoration: none;
+    color: blue;
+}
+.infoPNJ .certificate {
+    margin-top: 20px;
+}
+.infoPNJ .contact {
+    margin-top: 20px;
+}
+.aboutPNJ a {
+    text-decoration: none;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.725);
+}
+.servicePNJ {
+    margin: 0 30px;
+}
+.servicePNJ a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.705);
+}
+
+.contactPNJ .socialPNJ img {
+    max-height: 35px;
+    max-width: 35px;
+    margin: 15px 3px;
+}
+.footerChild {
+    display: flex;
+    max-width: 1200px;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+.footerChild h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.paymentPNJ {
+    margin-right: 50px;
+    margin-left: 500px;
+}
+.paymentPNJ .img_paymentPNJ {
+    display: flex;
+    margin-left: 5px;
+}
+.paymentPNJ img {
+    max-height: 35px;
+    max-width: 35px;
+    padding-right: 5px;
+}
+.certificationPNJ img {
+    max-height: 40px;
+    max-width: 100px;
+}
