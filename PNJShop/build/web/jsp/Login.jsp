@@ -29,7 +29,7 @@
                 <div class="title"><h2>Vui lòng đăng nhập để tiếp tục</h2></div>
 
                 <div class="login-form">
-                    <form action="login" method="post">
+                    <form action="login" method="post" autocomplete="on">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
                             <input value="${param.userName != null ? param.userName : ''}" type="text" name="userName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -39,8 +39,8 @@
                             <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
                             <input value="${param.password != null ? param.password : ''}" type="password" name="password" class="form-control" id="exampleInputPassword1">
                         </div>
-                        <div class="g-recaptcha" data-sitekey="6LfXuv8qAAAAADSl66h76G3PIVKdifIQ990ZGVhm"></div>
-			<div id="error"></div>
+<!--                        <div class="g-recaptcha" data-sitekey="6LfXuv8qAAAAADSl66h76G3PIVKdifIQ990ZGVhm"></div>
+			<div id="error"></div>-->
 			
 
                         <input type="hidden" name="service" value="login">
@@ -103,7 +103,7 @@
         function loginGoogle(){
             window.location.href =
 "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:9999/pnj/login&response_\n\
-type=code&client_id=324641262264-6to7uqg68pkeg7drik88d39hbsalg7j0.apps.googleusercontent.com&approval_prompt=force&state=loginGoogle" + "|" + encodeURIComponent('<%= redirectUrl%>');
+type=code&client_id=&approval_prompt=force&state=loginGoogle" + "|" + encodeURIComponent('<%= redirectUrl%>');
         }
     </script>
 </html>

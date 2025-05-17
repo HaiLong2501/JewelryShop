@@ -37,11 +37,11 @@ import model.User;
  */
 public class EmailService {
 
-    private static final String SMTP_HOST = "smtp.gmail.com";
-    private static final String SMTP_PORT = "587";
-    private static final String SMTP_USER = "jewelryshop898@gmail.com";
-    private static final String SMTP_PASSWORD = "fsav ghct tybh jcpf";
-//    private static final String SMTP_PASSWORD = "jewelry123";
+    private static final String SMTP_HOST = "";
+    private static final String SMTP_PORT = "";
+    private static final String SMTP_USER = "";
+    private static final String SMTP_PASSWORD = "";
+//    private static final String SMTP_PASSWORD = "";
 
     public void sendConfirmOrder(User u, Vector<OrderDetail> listProduct) throws AddressException, MessagingException {
 
@@ -138,7 +138,7 @@ public class EmailService {
 
         OrderDetailDAO odDao = new OrderDetailDAO();
 
-        User u = uDao.checkEmail("longx3732@gmail.com");
+        User u = uDao.checkEmail("");
 
         System.out.println(u.getName());
 
