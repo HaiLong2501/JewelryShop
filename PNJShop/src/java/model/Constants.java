@@ -12,7 +12,7 @@ public class Constants {
 
     public static String GOOGLE_CLIENT_ID = "";
 
-    public static String GOOGLE_CLIENT_SECRET = "";
+    public static String GOOGLE_CLIENT_KEY = "";
 
     public static String GOOGLE_REDIRECT_URI = "";
 
