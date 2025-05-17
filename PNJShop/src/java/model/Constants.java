@@ -12,7 +12,7 @@ public class Constants {
 
     public static String GOOGLE_CLIENT_ID = "";
 
-    public static String GOOGLE_CLIENT_KEY = "";
+    public static String GOOGLE_CLIENT_SECRET = "";
 
     public static String GOOGLE_REDIRECT_URI = "";
 
@@ -20,5 +20,5 @@ public class Constants {
 
     public static String GOOGLE_LINK_GET_USER_INFO = "";
 
-    public static String GOOGLE_GRANT_TYPE = "";
+    public static String GOOGLE_GRANT_TYPE = "authorization_code";
 }
