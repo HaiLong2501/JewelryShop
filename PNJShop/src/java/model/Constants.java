@@ -20,5 +20,5 @@ public class Constants {
 
     public static String GOOGLE_LINK_GET_USER_INFO = "";
 
-    public static String GOOGLE_GRANT_TYPE = "authorization_code";
+    public static String GOOGLE_GRANT_TYPE = "";
 }
