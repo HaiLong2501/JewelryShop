@@ -9,6 +9,7 @@ import model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -232,19 +233,109 @@ public class UserDAO extends DBContext {
             ResultSet rs = ptm.executeQuery();
 
             if (rs.next()) {
-                User u = new User(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getInt(4),
-                        rs.getString(5), rs.getString(6),
-                        rs.getBoolean(7),
-                        rs.getString(8), rs.getString(9));
-
-                return u;
+                return mapUser(rs);
             }
         } catch (SQLException e) {
             e.getStackTrace();
         }
 
         return null;
+    }
+
+    public User findByID(int userID) {
+        String sql = "select * from tblUsers where userID = ?";
+
+        try {
+            PreparedStatement ptm = connection.prepareStatement(sql);
+
+            ptm.setInt(1, userID);
+
+            ResultSet rs = ptm.executeQuery();
+
+            if (rs.next()) {
+                return mapUser(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public User findByFacebookID(String facebookID) {
+        String sql = "select * from tblUsers where facebookID = ?";
+
+        try {
+            PreparedStatement ptm = connection.prepareStatement(sql);
+
+            ptm.setString(1, facebookID);
+
+            ResultSet rs = ptm.executeQuery();
+
+            if (rs.next()) {
+                return mapUser(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void insertFacebookUser(User u) {
+        String sql = "INSERT INTO [dbo].[tblUsers]\n"
+                + "           ([fullName]\n"
+                + "           ,[password]\n"
+                + "           ,[roleID]\n"
+                + "           ,[email]\n"
+                + "           ,[activate]\n"
+                + "           ,[UserName]\n"
+                + "           ,[facebookID])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement ptm = connection.prepareStatement(sql);
+
+            ptm.setString(1, u.getName());
+            ptm.setNull(2, Types.NVARCHAR);
+            ptm.setInt(3, 2);
+            ptm.setString(4, u.getEmail());
+            ptm.setBoolean(5, true);
+            ptm.setString(6, u.getEmail());
+            ptm.setString(7, u.getFacebookID());
+
+            ptm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setFacebookID(int userID, String facebookID) {
+        String sql = "UPDATE [dbo].[tblUsers]\n"
+                + "   SET [facebookID] = ?\n"
+                + " WHERE userID = ? AND facebookID IS NULL";
+
+        try {
+            PreparedStatement ptm = connection.prepareStatement(sql);
+
+            ptm.setString(1, facebookID);
+            ptm.setInt(2, userID);
+
+            ptm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private User mapUser(ResultSet rs) throws SQLException {
+        User u = new User(rs.getInt(1), rs.getString(2),
+                rs.getString(3), rs.getInt(4),
+                rs.getString(5), rs.getString(6),
+                rs.getBoolean(7),
+                rs.getString(8), rs.getString(9));
+        u.setFacebookID(rs.getString("facebookID"));
+        return u;
     }
 
     public void updateUser(User u) {

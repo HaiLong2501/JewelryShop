@@ -29,6 +29,7 @@ public class User {
     private int roleID;
     private boolean activate;
     private String gender;
+    private String facebookID;
 
     public User() {
     }
@@ -165,6 +166,14 @@ public class User {
         this.activate = activate;
     }
     
+    public String getFacebookID() {
+        return facebookID;
+    }
+
+    public void setFacebookID(String facebookID) {
+        this.facebookID = facebookID;
+    }
+
     public String userGoogleToString() {
 		return "UserGoogleDto{" + "id=" + id + ", email=" + email + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + '}';
 	}
@@ -178,7 +187,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + ", userID=" + userID + ", userName=" + userName + ", password=" + password + ", address=" + address + ", phone=" + phone + ", email=" + email + ", roleID=" + roleID + ", activate=" + activate + ", gender=" + gender + '}';
+        return "User{" + "id=" + id + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + ", userID=" + userID + ", userName=" + userName + ", password=" + password + ", address=" + address + ", phone=" + phone + ", email=" + email + ", roleID=" + roleID + ", activate=" + activate + ", gender=" + gender + ", facebookID=" + facebookID + '}';
     }
 
 }

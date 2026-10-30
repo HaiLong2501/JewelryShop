@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
     <% 
@@ -58,7 +59,8 @@
                         </div>
                         <div class="login-google">
                             <button type="button" onclick="loginGoogle()"  class="btn btn-primary">Login with google</button>
-                            
+                            <a class="btn btn-primary" style="background-color: #1877F2; border-color: #1877F2;"
+                               href="<%= request.getContextPath() %>/login-facebook?redirectUrl=<%= java.net.URLEncoder.encode(redirectUrl == null ? "" : redirectUrl, "UTF-8") %>">Đăng nhập bằng Facebook</a>
                         </div>
                     </form>
                 </div>
@@ -72,6 +74,26 @@
                             </div>
                         </div>
                     </div>
+                </c:if>
+                <c:if test="${not empty param.fbError}">
+                    <c:set var="fbMessage">
+                        <c:choose>
+                            <c:when test="${param.fbError == 'cancelled'}">Bạn đã huỷ đăng nhập bằng Facebook.</c:when>
+                            <c:when test="${param.fbError == 'noemail'}">Tài khoản Facebook của bạn chưa chia sẻ email, vui lòng dùng cách đăng nhập khác.</c:when>
+                            <c:when test="${param.fbError == 'linked'}">Email này đã được liên kết với một tài khoản Facebook khác. Vui lòng đăng nhập bằng cách cũ.</c:when>
+                            <c:when test="${param.fbError == 'locked'}">Tài khoản của bạn đã bị khoá. Vui lòng liên hệ cửa hàng.</c:when>
+                            <c:when test="${param.fbError == 'invalid'}">Phiên đăng nhập không hợp lệ hoặc đã hết hạn, vui lòng thử lại.</c:when>
+                            <c:when test="${param.fbError == 'failed'}">Không thể đăng nhập bằng Facebook, vui lòng thử lại hoặc dùng cách đăng nhập khác.</c:when>
+                            <c:when test="${param.fbError == 'unavailable'}">Đăng nhập Facebook tạm thời không khả dụng.</c:when>
+                        </c:choose>
+                    </c:set>
+                    <c:if test="${not empty fn:trim(fbMessage)}">
+                        <div class="login-fail">
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <div>${fbMessage}</div>
+                            </div>
+                        </div>
+                    </c:if>
                 </c:if>
                 <c:if test="${requestScope.report != null}">
                     <div class="login-continue">

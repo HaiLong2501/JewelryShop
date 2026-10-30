@@ -125,6 +125,8 @@
                                                         <input type="hidden" name="redirectUrl" value="${requestScope.redirectUrl != null ? requestScope.redirectUrl : ''}">
                                                         <button  type="submit"  class="btn btn-primary btn-lg">Đăng ký</button>
                                                         <!--<a class="btn btn-primary" href="">Login with google</a>-->
+                                                        <a class="btn btn-primary btn-lg" style="background-color: #1877F2; border-color: #1877F2;"
+                                                           href="<%= request.getContextPath() %>/login-facebook?redirectUrl=<%= java.net.URLEncoder.encode(request.getAttribute("redirectUrl") == null ? "" : (String) request.getAttribute("redirectUrl"), "UTF-8") %>">Đăng nhập bằng Facebook</a>
                                                     </div>
 
                                                 </form>
