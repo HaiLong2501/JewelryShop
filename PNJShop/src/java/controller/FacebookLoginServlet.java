@@ -5,13 +5,14 @@ import dal.UserDAO;
 import dal.UserFacebookDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -31,6 +32,11 @@ public class FacebookLoginServlet extends HttpServlet {
 
     private static final String LOGIN_PAGE = "login?service=login&fbError=";
     private static final SecureRandom RANDOM = new SecureRandom();
+    // state and return page live in short-lived cookies, not in the session:
+    // CartServlet / CheckoutServlet treat every session attribute except "user" as a Cart
+    private static final String STATE_COOKIE = "fbState";
+    private static final String REDIRECT_COOKIE = "fbRedirect";
+    private static final int COOKIE_MAX_AGE = 600;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,9 +60,9 @@ public class FacebookLoginServlet extends HttpServlet {
         RANDOM.nextBytes(bytes);
         String state = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
 
-        HttpSession session = request.getSession(true);
-        session.setAttribute("fbState", state);
-        session.setAttribute("fbRedirect", safeRedirect(request, request.getParameter("redirectUrl")));
+        addCookie(request, response, STATE_COOKIE, state, COOKIE_MAX_AGE);
+        addCookie(request, response, REDIRECT_COOKIE,
+                encode(safeRedirect(request, request.getParameter("redirectUrl"))), COOKIE_MAX_AGE);
 
         response.sendRedirect(FacebookConfig.DIALOG_URL
                 + "?client_id=" + encode(FacebookConfig.getAppId())
@@ -68,11 +74,12 @@ public class FacebookLoginServlet extends HttpServlet {
 
     private void handleCallback(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        HttpSession session = request.getSession(true);
-        String expectedState = (String) session.getAttribute("fbState");
-        String redirect = (String) session.getAttribute("fbRedirect");
-        session.removeAttribute("fbState");
-        session.removeAttribute("fbRedirect");
+        String expectedState = readCookie(request, STATE_COOKIE);
+        String redirect = readCookie(request, REDIRECT_COOKIE);
+        redirect = redirect == null ? null : safeRedirect(request, URLDecoder.decode(redirect, StandardCharsets.UTF_8));
+        // state can only be used once
+        addCookie(request, response, STATE_COOKIE, "", 0);
+        addCookie(request, response, REDIRECT_COOKIE, "", 0);
 
         if (expectedState == null || !expectedState.equals(request.getParameter("state"))) {
             response.sendRedirect(LOGIN_PAGE + "invalid");
@@ -132,7 +139,7 @@ public class FacebookLoginServlet extends HttpServlet {
                 response.sendRedirect(LOGIN_PAGE + "failed");
                 return;
             }
-            session.setAttribute("user", sessionUser);
+            request.getSession(true).setAttribute("user", sessionUser);
 
             if (sessionUser.getRoleID() == 1) {
                 response.sendRedirect("admin");
@@ -180,6 +187,27 @@ public class FacebookLoginServlet extends HttpServlet {
         } catch (URISyntaxException e) {
             return "home";
         }
+    }
+
+    private void addCookie(HttpServletRequest request, HttpServletResponse response,
+            String name, String value, int maxAge) {
+        Cookie c = new Cookie(name, value);
+        c.setPath(request.getContextPath() + "/login-facebook");
+        c.setHttpOnly(true);
+        c.setSecure(request.isSecure());
+        c.setMaxAge(maxAge);
+        response.addCookie(c);
+    }
+
+    private String readCookie(HttpServletRequest request, String name) {
+        if (request.getCookies() != null) {
+            for (Cookie c : request.getCookies()) {
+                if (name.equals(c.getName()) && !c.getValue().isEmpty()) {
+                    return c.getValue();
+                }
+            }
+        }
+        return null;
     }
 
     private static String encode(String s) {

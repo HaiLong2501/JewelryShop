@@ -22,13 +22,13 @@
 
 ## R3. Chống giả mạo phản hồi (FR-003)
 
-- **Decision**: Sinh `state` ngẫu nhiên (`SecureRandom`, 32 byte, Base64 URL-safe) mỗi lần khách bấm nút, lưu trong `HttpSession` cùng URL cần quay về. Khi Facebook gọi lại: so sánh `state` với giá trị trong session, xoá ngay sau khi so (dùng một lần). Không khớp/không có → từ chối.
+- **Decision**: Sinh `state` ngẫu nhiên (`SecureRandom`, 32 byte, Base64 URL-safe) mỗi lần khách bấm nút, lưu trong cookie `fbState` (HttpOnly, path `/login-facebook`, hết hạn 10 phút) cùng cookie `fbRedirect` chứa URL cần quay về. Khi Facebook gọi lại: so sánh `state` với cookie, xoá cả hai cookie ngay sau khi so (dùng một lần). Không lưu trong `HttpSession` vì `CartServlet`/`CheckoutServlet` coi mọi thuộc tính session (trừ `user`) là `Cart` — lượt đăng nhập bị bỏ dở sẽ làm hỏng giỏ hàng (phát hiện khi chạy thử end-to-end). Không khớp/không có → từ chối.
 - **Rationale**: Chống CSRF đăng nhập và chống dùng lại phản hồi. Luồng Google hiện tại dùng `state` cố định (`loginGoogle|url`) nên không có lớp bảo vệ này — không đổi Google trong phạm vi feature này, nhưng ghi nhận.
 - **Alternatives considered**: PKCE — Facebook hỗ trợ nhưng với client có secret phía server thì `state` là đủ cho phạm vi này.
 
 ## R4. Quay về trang trước (FR-008) và chống open redirect
 
-- **Decision**: URL quay về được lưu trong session (không đưa vào `state`). Chấp nhận đường dẫn tương đối trong ứng dụng, hoặc URL đầy đủ có cùng host và port với server (các trang hiện tại gửi `window.location.href`, ví dụ `Home.jsp`, `ProductDetail.jsp`); chỉ giữ lại phần path + query. Domain khác, `//…`, chứa `\`, hoặc URL không hợp lệ → `home`. Tài khoản `roleID == 1` → `admin`.
+- **Decision**: URL quay về được lưu trong cookie `fbRedirect` (không đưa vào `state`) và được kiểm tra lại khi đọc ra. Chấp nhận đường dẫn tương đối trong ứng dụng, hoặc URL đầy đủ có cùng host và port với server (các trang hiện tại gửi `window.location.href`, ví dụ `Home.jsp`, `ProductDetail.jsp`); chỉ giữ lại phần path + query. Domain khác, `//…`, chứa `\`, hoặc URL không hợp lệ → `home`. Tài khoản `roleID == 1` → `admin`.
 - **Rationale**: Hiện `LoginServlet` redirect thẳng theo tham số `redirectUrl`, có thể bị lợi dụng chuyển khách sang trang lừa đảo; nhưng nếu chỉ nhận đường dẫn tương đối thì mọi `redirectUrl` hiện có (đều là URL đầy đủ) sẽ bị từ chối.
 
 ## R5. Lưu thông tin bí mật (FR-012)

@@ -9,7 +9,7 @@ Hướng dẫn chạy và kiểm tra tính năng từ đầu đến cuối. Chi 
    - Valid OAuth Redirect URIs: `http://localhost:9999/pnj/login-facebook`
    - Ghi lại App ID và App Secret.
    - Thêm 1–2 test user (hoặc dùng tài khoản của chính bạn — tài khoản có vai trò trong app mới đăng nhập được khi app ở Development).
-2. **Cập nhật cơ sở dữ liệu**: chạy đoạn migration trong [data-model.md](./data-model.md).
+2. **Cập nhật cơ sở dữ liệu**: chạy `PNJShop/database/001-add-facebookID.sql` trong SSMS (nếu dùng `sqlcmd` thì thêm tham số `-I`).
 3. **Đặt biến môi trường** cho Tomcat (NetBeans → Services → Servers → Tomcat → Properties, hoặc biến môi trường Windows rồi khởi động lại NetBeans):
    - `FB_APP_ID=<App ID>`
    - `FB_APP_SECRET=<App Secret>`

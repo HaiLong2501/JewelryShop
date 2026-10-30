@@ -20,10 +20,13 @@
 
 - `UX_tblUsers_facebookID`: UNIQUE trên `facebookID` WHERE `facebookID IS NOT NULL` → một Facebook chỉ gắn với tối đa một tài khoản (FR-006).
 - Cột thêm ở **cuối bảng** để không làm lệch các truy vấn `SELECT *` đang đọc theo vị trí cột.
+- Chỉ mục có lọc yêu cầu `QUOTED_IDENTIFIER ON` cho mọi câu INSERT/UPDATE vào `tblUsers`. JDBC và SSMS bật sẵn; `sqlcmd` cần thêm `-I`. Stored procedure/trigger cũ tạo với `QUOTED_IDENTIFIER OFF` sẽ không ghi được vào bảng này.
 
 **Migration** (chạy một lần trên SQL Server):
 
 ```sql
+SET ANSI_NULLS ON;
+SET QUOTED_IDENTIFIER ON;
 ALTER TABLE dbo.tblUsers ADD facebookID NVARCHAR(64) NULL;
 CREATE UNIQUE INDEX UX_tblUsers_facebookID ON dbo.tblUsers(facebookID) WHERE facebookID IS NOT NULL;
 ```
@@ -40,13 +43,15 @@ CREATE UNIQUE INDEX UX_tblUsers_facebookID ON dbo.tblUsers(facebookID) WHERE fac
 | name | `/me` → `name` | có |
 | email | `/me` → `email` | không (có thể thiếu → xem quy tắc dưới) |
 
-## Dữ liệu trong session (tạm, trong một lượt đăng nhập)
+## Dữ liệu tạm trong một lượt đăng nhập
 
-| Khoá | Giá trị | Vòng đời |
-|---|---|---|
-| `fbState` | chuỗi ngẫu nhiên | tạo khi bấm nút; xoá ngay khi Facebook gọi lại |
-| `fbRedirect` | URL tương đối cần quay về | tạo khi bấm nút; xoá khi xong |
-| `user` | `User` nạp từ DB (có `userID`) | như đăng nhập hiện tại |
+| Nơi lưu | Khoá | Giá trị | Vòng đời |
+|---|---|---|---|
+| cookie (HttpOnly, path `/login-facebook`, 10 phút) | `fbState` | chuỗi ngẫu nhiên | tạo khi bấm nút; xoá ngay khi Facebook gọi lại |
+| cookie (HttpOnly, path `/login-facebook`, 10 phút) | `fbRedirect` | URL tương đối cần quay về (URL-encoded) | tạo khi bấm nút; xoá khi Facebook gọi lại |
+| session | `user` | `User` nạp từ DB (có `userID`) | như đăng nhập hiện tại |
+
+Không đặt `fbState`/`fbRedirect` vào session: `CartServlet`/`CheckoutServlet` ép mọi thuộc tính session (trừ `user`) thành `Cart`.
 
 ## Quy tắc khớp tài khoản (FR-004 → FR-009)
 

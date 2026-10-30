@@ -13,7 +13,7 @@ Servlet mới `FacebookLoginServlet`, ánh xạ `/login-facebook`. Mọi phản 
 **Hành vi**
 
 - Thiếu cấu hình (`FB_APP_ID`/`FB_APP_SECRET`/`FB_REDIRECT_URI`) → 302 `login?service=login&fbError=unavailable`.
-- Ngược lại: tạo `fbState`, lưu `fbState` + `fbRedirect` vào session → 302 tới
+- Ngược lại: tạo `fbState`, đặt cookie `fbState` + `fbRedirect` (HttpOnly, path `{contextPath}/login-facebook`, hết hạn 600 giây) → 302 tới
   `https://www.facebook.com/{version}/dialog/oauth?client_id={FB_APP_ID}&redirect_uri={FB_REDIRECT_URI}&state={fbState}&scope=public_profile,email&response_type=code`
 
 ## 2. Facebook gọi lại (callback)
@@ -24,7 +24,7 @@ Servlet mới `FacebookLoginServlet`, ánh xạ `/login-facebook`. Mọi phản 
 
 | Điều kiện | Kết quả |
 |---|---|
-| `state` không khớp `fbState` trong session (hoặc session không có) | 302 `login?service=login&fbError=invalid` |
+| `state` không khớp cookie `fbState` (hoặc không có cookie) | 302 `login?service=login&fbError=invalid` |
 | có `error` | 302 `login?service=login&fbError=cancelled` |
 | lỗi khi đổi token / lấy hồ sơ, JSON không hợp lệ, hoặc ghi DB thất bại | 302 `login?service=login&fbError=failed` |
 | hồ sơ không có email và chưa từng liên kết | 302 `login?service=login&fbError=noemail` |
@@ -33,7 +33,7 @@ Servlet mới `FacebookLoginServlet`, ánh xạ `/login-facebook`. Mọi phản 
 | thành công, `roleID = 1` | session `user` = tài khoản; 302 `admin` |
 | thành công, khách hàng | session `user` = tài khoản; 302 `fbRedirect` (hoặc `home`) |
 
-Trong mọi trường hợp, `fbState` và `fbRedirect` bị xoá khỏi session sau khi xử lý callback.
+Trong mọi trường hợp, cookie `fbState` và `fbRedirect` bị xoá (Max-Age=0) khi xử lý callback. Session chỉ được ghi `user` khi đăng nhập thành công.
 
 ## 3. Thông báo trên trang đăng nhập
 
