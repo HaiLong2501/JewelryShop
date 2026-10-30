@@ -28,8 +28,8 @@
 
 ## R4. Quay về trang trước (FR-008) và chống open redirect
 
-- **Decision**: URL quay về được lưu trong session (không đưa vào `state`). Chỉ chấp nhận đường dẫn tương đối trong ứng dụng (bắt đầu bằng `/` hoặc tên servlet, không chứa `//` hay `://`); sai → về `home`. Tài khoản `roleID == 1` → `admin`.
-- **Rationale**: Hiện `LoginServlet` redirect thẳng theo tham số `redirectUrl`, có thể bị lợi dụng chuyển khách sang trang lừa đảo.
+- **Decision**: URL quay về được lưu trong session (không đưa vào `state`). Chấp nhận đường dẫn tương đối trong ứng dụng, hoặc URL đầy đủ có cùng host và port với server (các trang hiện tại gửi `window.location.href`, ví dụ `Home.jsp`, `ProductDetail.jsp`); chỉ giữ lại phần path + query. Domain khác, `//…`, chứa `\`, hoặc URL không hợp lệ → `home`. Tài khoản `roleID == 1` → `admin`.
+- **Rationale**: Hiện `LoginServlet` redirect thẳng theo tham số `redirectUrl`, có thể bị lợi dụng chuyển khách sang trang lừa đảo; nhưng nếu chỉ nhận đường dẫn tương đối thì mọi `redirectUrl` hiện có (đều là URL đầy đủ) sẽ bị từ chối.
 
 ## R5. Lưu thông tin bí mật (FR-012)
 

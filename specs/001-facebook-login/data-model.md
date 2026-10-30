@@ -56,6 +56,7 @@ u = findByFacebookID(profile.id)
 if u == null:
     if profile.email rỗng: TỪ CHỐI "chưa chia sẻ email"          (Clarification Q2)
     u = findByEmail(profile.email)
+    if u != null and u.facebookID != null: TỪ CHỐI "đã liên kết Facebook khác"  (FR-007)
     if u != null: setFacebookID(u, profile.id)                   (Clarification Q1)
     else: u = insert(fullName=name, email, userName=email,
                      roleID=2, activate=1, facebookID=id)        (FR-004)
@@ -70,5 +71,6 @@ session.user = reload(u.userID)                                   (R8)
                                  |--error (huỷ)--> [Trang login + "đã huỷ"]
                                  |--state sai/hết hạn--> [Trang login + "không hợp lệ"]
                    [Đổi token]/[Lấy hồ sơ] lỗi mạng --> [Trang login + "không thể đăng nhập"]
-                   [Khớp tài khoản] thiếu email / bị khoá --> [Trang login + thông báo tương ứng]
+                   [Khớp tài khoản] thiếu email / bị khoá / đã liên kết Facebook khác --> [Trang login + thông báo tương ứng]
+                   lỗi bất ngờ (JSON lạ, ghi DB thất bại) --> [Trang login + "không thể đăng nhập"]
 ```

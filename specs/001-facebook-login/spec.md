@@ -65,6 +65,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 ### Edge Cases
 
 - Tài khoản Facebook không có email (đăng ký Facebook bằng số điện thoại) hoặc khách không cho phép chia sẻ email: hệ thống từ chối đăng nhập, đưa khách về trang đăng nhập với thông báo "Tài khoản Facebook của bạn chưa chia sẻ email, vui lòng dùng cách đăng nhập khác", và không tạo tài khoản nào.
+- Email Facebook trùng với tài khoản đã được gắn với một Facebook khác: từ chối đăng nhập với thông báo "Email này đã được liên kết với một tài khoản Facebook khác. Vui lòng đăng nhập bằng cách cũ."; không thay đổi liên kết hiện có.
 - Facebook không phản hồi hoặc lỗi kết nối: khách quay về trang đăng nhập với thông báo "Không thể đăng nhập bằng Facebook, vui lòng thử lại hoặc dùng cách đăng nhập khác"; không có lỗi kỹ thuật nào hiển thị cho khách.
 - Yêu cầu quay về từ Facebook bị giả mạo hoặc đã hết hạn / dùng lại: hệ thống từ chối và không đăng nhập ai.
 - Tài khoản admin: đăng nhập bằng Facebook vào tài khoản có quyền admin vẫn được đưa tới trang quản trị, giống đăng nhập thường.
@@ -81,7 +82,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 - **FR-004**: Khi khách đăng nhập Facebook lần đầu và chưa có tài khoản tương ứng, hệ thống MUST tự tạo tài khoản khách hàng (vai trò khách hàng thường, trạng thái hoạt động) với tên và email lấy từ Facebook. Nếu Facebook không cung cấp email, hệ thống MUST từ chối đăng nhập và không tạo tài khoản.
 - **FR-005**: Hệ thống MUST lưu định danh Facebook của khách để những lần đăng nhập sau nhận ra đúng tài khoản, kể cả khi khách đổi email trên Facebook.
 - **FR-006**: Hệ thống MUST không bao giờ tạo hai tài khoản cho cùng một định danh Facebook hoặc cùng một email.
-- **FR-007**: Khi email Facebook trùng với tài khoản đã có (đăng ký bằng mật khẩu hoặc Google), hệ thống MUST tự động đăng nhập vào tài khoản đó và gắn định danh Facebook vào tài khoản, không yêu cầu xác nhận thêm.
+- **FR-007**: Khi email Facebook trùng với tài khoản đã có (đăng ký bằng mật khẩu hoặc Google), hệ thống MUST tự động đăng nhập vào tài khoản đó và gắn định danh Facebook vào tài khoản, không yêu cầu xác nhận thêm. Nếu tài khoản đó đã được gắn với một tài khoản Facebook khác, hệ thống MUST từ chối đăng nhập và báo khách dùng cách đăng nhập cũ.
 - **FR-008**: Sau khi đăng nhập Facebook thành công, khách MUST được đưa về trang đang xem trước khi đăng nhập; nếu không có thì về trang chủ; tài khoản admin được đưa về trang quản trị.
 - **FR-009**: Tài khoản đang bị khoá MUST không đăng nhập được bằng Facebook.
 - **FR-010**: Khi khách huỷ cấp quyền hoặc có lỗi, hệ thống MUST đưa khách về trang đăng nhập với thông báo dễ hiểu bằng tiếng Việt.
@@ -92,7 +93,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 ### Key Entities *(include if feature involves data)*
 
 - **Người dùng (User)**: tài khoản hiện có của cửa hàng (tên, email, tên đăng nhập, vai trò, trạng thái hoạt động). Bổ sung khả năng gắn với một định danh Facebook.
-- **Liên kết Facebook**: mối liên hệ giữa một người dùng và một tài khoản Facebook (định danh Facebook duy nhất, ngày liên kết). Mỗi định danh Facebook chỉ gắn với tối đa một người dùng.
+- **Liên kết Facebook**: định danh Facebook duy nhất gắn với một người dùng (mỗi người dùng tối đa một, mỗi định danh chỉ gắn với một người dùng).
 
 ## Success Criteria *(mandatory)*
 

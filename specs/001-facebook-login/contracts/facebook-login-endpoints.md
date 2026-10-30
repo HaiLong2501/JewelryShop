@@ -8,7 +8,7 @@ Servlet mới `FacebookLoginServlet`, ánh xạ `/login-facebook`. Mọi phản 
 
 | Tham số | Bắt buộc | Mô tả |
 |---|---|---|
-| redirectUrl | không | Trang cần quay về sau khi đăng nhập. Chỉ nhận đường dẫn tương đối trong ứng dụng; sai/thiếu → `home`. |
+| redirectUrl | không | Trang cần quay về sau khi đăng nhập. Nhận đường dẫn tương đối trong ứng dụng, hoặc URL đầy đủ cùng host + port với server (chỉ giữ path + query). Domain khác / `//…` / không hợp lệ / thiếu → `home`. |
 
 **Hành vi**
 
@@ -26,8 +26,9 @@ Servlet mới `FacebookLoginServlet`, ánh xạ `/login-facebook`. Mọi phản 
 |---|---|
 | `state` không khớp `fbState` trong session (hoặc session không có) | 302 `login?service=login&fbError=invalid` |
 | có `error` | 302 `login?service=login&fbError=cancelled` |
-| lỗi khi đổi token / lấy hồ sơ | 302 `login?service=login&fbError=failed` |
+| lỗi khi đổi token / lấy hồ sơ, JSON không hợp lệ, hoặc ghi DB thất bại | 302 `login?service=login&fbError=failed` |
 | hồ sơ không có email và chưa từng liên kết | 302 `login?service=login&fbError=noemail` |
+| email trùng tài khoản đã gắn với Facebook khác | 302 `login?service=login&fbError=linked` |
 | tài khoản `activate = 0` | 302 `login?service=login&fbError=locked` |
 | thành công, `roleID = 1` | session `user` = tài khoản; 302 `admin` |
 | thành công, khách hàng | session `user` = tài khoản; 302 `fbRedirect` (hoặc `home`) |
@@ -42,6 +43,7 @@ Trong mọi trường hợp, `fbState` và `fbRedirect` bị xoá khỏi session
 |---|---|
 | cancelled | Bạn đã huỷ đăng nhập bằng Facebook. |
 | noemail | Tài khoản Facebook của bạn chưa chia sẻ email, vui lòng dùng cách đăng nhập khác. |
+| linked | Email này đã được liên kết với một tài khoản Facebook khác. Vui lòng đăng nhập bằng cách cũ. |
 | locked | Tài khoản của bạn đã bị khoá. Vui lòng liên hệ cửa hàng. |
 | invalid | Phiên đăng nhập không hợp lệ hoặc đã hết hạn, vui lòng thử lại. |
 | failed | Không thể đăng nhập bằng Facebook, vui lòng thử lại hoặc dùng cách đăng nhập khác. |

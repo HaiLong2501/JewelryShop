@@ -15,6 +15,7 @@ Hướng dẫn chạy và kiểm tra tính năng từ đầu đến cuối. Chi 
    - `FB_APP_SECRET=<App Secret>`
    - `FB_REDIRECT_URI=http://localhost:9999/pnj/login-facebook`
 4. Clean and Build, rồi Run project.
+5. Luôn mở trang bằng đúng host đã khai báo trong `FB_REDIRECT_URI` (`localhost`, không dùng `127.0.0.1`), nếu không cookie phiên bị mất và luôn gặp lỗi "Phiên đăng nhập không hợp lệ".
 
 ## Kịch bản kiểm tra
 
@@ -26,13 +27,16 @@ Hướng dẫn chạy và kiểm tra tính năng từ đầu đến cuối. Chi 
 | 4 | Thêm sản phẩm vào giỏ, đăng xuất, đăng nhập Facebook lại | Giỏ hàng còn; `tblUsers` không có dòng trùng | US2-1, FR-006 |
 | 5 | Admin khoá tài khoản ở kịch bản 1, đăng nhập Facebook lại | Thông báo "Tài khoản đã bị khoá" | US2-2, FR-009 |
 | 6 | Đăng ký tài khoản thường với email = email Facebook của test user khác, rồi đăng nhập Facebook | Vào tài khoản có sẵn; dòng đó được điền `facebookID`; không có dòng trùng email | US3, FR-007 |
+| 6b | Dùng test user thứ hai có cùng email với tài khoản ở kịch bản 6 (đã gắn Facebook) | Thông báo "Email này đã được liên kết…"; `facebookID` của tài khoản không đổi | FR-007 |
 | 7 | Đăng nhập bằng test user bỏ chọn quyền email (lần đầu) | Thông báo "chưa chia sẻ email"; không có dòng mới | Edge, Q2 |
 | 8 | Mở thẳng `/pnj/login-facebook?code=abc&state=xyz` | Thông báo "Phiên đăng nhập không hợp lệ"; không ai được đăng nhập | FR-003 |
 | 9 | Mở `/pnj/login-facebook?redirectUrl=https://evil.example` rồi đăng nhập | Về trang chủ của cửa hàng, không sang trang ngoài | R4 |
+| 9b | Đang ở trang chi tiết sản phẩm (chưa đăng nhập), bấm đăng nhập → đăng nhập Facebook | Quay lại đúng trang chi tiết sản phẩm đó | FR-008, R4 |
 | 10 | Đăng nhập Facebook bằng tài khoản admin đã liên kết | Vào trang `admin` | Edge |
 | 11 | Xoá biến `FB_APP_ID`, khởi động lại, bấm nút | Thông báo "tạm thời không khả dụng"; không lỗi 500 | R5 |
 | 12 | Với tài khoản ở kịch bản 1: thêm hàng, đặt hàng, thanh toán | Đơn hàng tạo thành công, gắn đúng `userID` | FR-013, SC-005 |
 | 13 | Dùng test user có tên tiếng Việt có dấu | Tên hiện đúng trên header và trong `tblUsers` | Edge |
+| 14 | Đang đăng nhập bằng Facebook, bấm đăng xuất | Về trang chủ, header không còn tên | FR-011 |
 
 ## Kiểm tra bảo mật nhanh
 
