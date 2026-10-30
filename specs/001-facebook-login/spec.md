@@ -8,6 +8,12 @@
 
 **Input**: User description: "tôi muốn thêm một tính năng login bằng facebook"
 
+## Clarifications
+
+### Session 2026-10-30
+
+- Q: Khi email Facebook trùng với một tài khoản đã có (đăng ký bằng mật khẩu hoặc Google), hệ thống nên xử lý thế nào? → A: Tự động đăng nhập vào tài khoản có sẵn theo email và gắn Facebook vào tài khoản đó (giống cách đăng nhập Google hiện tại).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Khách hàng mới đăng nhập bằng Facebook (Priority: P1)
@@ -43,7 +49,7 @@ Khách đã từng đăng nhập bằng Facebook trước đó quay lại cửa 
 
 ### User Story 3 - Khách đã có tài khoản thường / Google dùng Facebook (Priority: P3)
 
-Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Google với email X. Facebook của họ cũng dùng email X. Khi họ bấm đăng nhập bằng Facebook, hệ thống nhận ra đây là cùng một người và [NEEDS CLARIFICATION: tự động đăng nhập vào tài khoản có sẵn theo email (giống cách đăng nhập Google đang làm), hay phải yêu cầu khách xác nhận bằng mật khẩu trước khi liên kết?].
+Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Google với email X. Facebook của họ cũng dùng email X. Khi họ bấm đăng nhập bằng Facebook, hệ thống nhận ra đây là cùng một người, tự động đăng nhập vào tài khoản có sẵn theo email và gắn Facebook vào tài khoản đó, giống cách đăng nhập Google đang làm.
 
 **Why this priority**: Tránh tạo tài khoản trùng cho cùng một người, nhưng ít gặp hơn hai trường hợp trên.
 
@@ -51,7 +57,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 
 **Acceptance Scenarios**:
 
-1. **Given** đã có tài khoản với email X, **When** khách đăng nhập bằng Facebook có email X, **Then** khách được đưa vào tài khoản có sẵn theo quy tắc liên kết đã chọn, và không có hai tài khoản cùng email.
+1. **Given** đã có tài khoản với email X, **When** khách đăng nhập bằng Facebook có email X, **Then** khách được đăng nhập vào tài khoản có sẵn mà không phải nhập thêm gì, tài khoản đó được gắn với Facebook (lần sau nhận ra bằng định danh Facebook), và không có hai tài khoản cùng email.
 
 ---
 
@@ -74,7 +80,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 - **FR-004**: Khi khách đăng nhập Facebook lần đầu và chưa có tài khoản tương ứng, hệ thống MUST tự tạo tài khoản khách hàng (vai trò khách hàng thường, trạng thái hoạt động) với tên và email lấy từ Facebook.
 - **FR-005**: Hệ thống MUST lưu định danh Facebook của khách để những lần đăng nhập sau nhận ra đúng tài khoản, kể cả khi khách đổi email trên Facebook.
 - **FR-006**: Hệ thống MUST không bao giờ tạo hai tài khoản cho cùng một định danh Facebook hoặc cùng một email.
-- **FR-007**: Khi email Facebook trùng với tài khoản đã có, hệ thống MUST xử lý theo quy tắc liên kết ở User Story 3.
+- **FR-007**: Khi email Facebook trùng với tài khoản đã có (đăng ký bằng mật khẩu hoặc Google), hệ thống MUST tự động đăng nhập vào tài khoản đó và gắn định danh Facebook vào tài khoản, không yêu cầu xác nhận thêm.
 - **FR-008**: Sau khi đăng nhập Facebook thành công, khách MUST được đưa về trang đang xem trước khi đăng nhập; nếu không có thì về trang chủ; tài khoản admin được đưa về trang quản trị.
 - **FR-009**: Tài khoản đang bị khoá MUST không đăng nhập được bằng Facebook.
 - **FR-010**: Khi khách huỷ cấp quyền hoặc có lỗi, hệ thống MUST đưa khách về trang đăng nhập với thông báo dễ hiểu bằng tiếng Việt.
