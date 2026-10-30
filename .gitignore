@@ -1,0 +1,19 @@
+# NetBeans / Ant build output
+build/
+dist/
+nbbuild/
+nbdist/
+
+# NetBeans per-user settings
+**/nbproject/private/
+
+# Compiled files
+*.class
+*.war
+*.jar
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
