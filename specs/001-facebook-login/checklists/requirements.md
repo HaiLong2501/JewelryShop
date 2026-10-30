@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -31,5 +31,5 @@
 
 ## Notes
 
-- 2 [NEEDS CLARIFICATION] markers remain (Q1: liên kết tài khoản trùng email; Q2: Facebook không có email). Waiting for user answers.
+- All [NEEDS CLARIFICATION] markers resolved via /speckit-clarify (session 2026-10-30).
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`

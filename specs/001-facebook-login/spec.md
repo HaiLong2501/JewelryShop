@@ -13,6 +13,7 @@
 ### Session 2026-10-30
 
 - Q: Khi email Facebook trùng với một tài khoản đã có (đăng ký bằng mật khẩu hoặc Google), hệ thống nên xử lý thế nào? → A: Tự động đăng nhập vào tài khoản có sẵn theo email và gắn Facebook vào tài khoản đó (giống cách đăng nhập Google hiện tại).
+- Q: Nếu tài khoản Facebook không có email hoặc khách không cho phép chia sẻ email, hệ thống nên làm gì? → A: Từ chối đăng nhập và báo khách dùng cách đăng nhập khác; không tạo tài khoản.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -63,7 +64,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 
 ### Edge Cases
 
-- Tài khoản Facebook không có email (đăng ký Facebook bằng số điện thoại) hoặc khách không cho phép chia sẻ email: [NEEDS CLARIFICATION: từ chối đăng nhập và yêu cầu dùng cách khác, hay cho phép đăng nhập và yêu cầu khách bổ sung email sau?]
+- Tài khoản Facebook không có email (đăng ký Facebook bằng số điện thoại) hoặc khách không cho phép chia sẻ email: hệ thống từ chối đăng nhập, đưa khách về trang đăng nhập với thông báo "Tài khoản Facebook của bạn chưa chia sẻ email, vui lòng dùng cách đăng nhập khác", và không tạo tài khoản nào.
 - Facebook không phản hồi hoặc lỗi kết nối: khách quay về trang đăng nhập với thông báo "Không thể đăng nhập bằng Facebook, vui lòng thử lại hoặc dùng cách đăng nhập khác"; không có lỗi kỹ thuật nào hiển thị cho khách.
 - Yêu cầu quay về từ Facebook bị giả mạo hoặc đã hết hạn / dùng lại: hệ thống từ chối và không đăng nhập ai.
 - Tài khoản admin: đăng nhập bằng Facebook vào tài khoản có quyền admin vẫn được đưa tới trang quản trị, giống đăng nhập thường.
@@ -77,7 +78,7 @@ Khách đã đăng ký bằng tên đăng nhập/mật khẩu hoặc bằng Goog
 - **FR-001**: Trang đăng nhập (và trang đăng ký) MUST hiển thị nút "Đăng nhập bằng Facebook" bên cạnh các cách đăng nhập hiện có.
 - **FR-002**: Hệ thống MUST chuyển khách sang Facebook để xác thực và chỉ xin quyền tối thiểu: tên công khai và email.
 - **FR-003**: Hệ thống MUST xác minh rằng phản hồi trả về từ Facebook là hợp lệ, thuộc đúng lượt đăng nhập đã khởi tạo, và từ chối mọi phản hồi giả mạo, hết hạn hoặc dùng lại.
-- **FR-004**: Khi khách đăng nhập Facebook lần đầu và chưa có tài khoản tương ứng, hệ thống MUST tự tạo tài khoản khách hàng (vai trò khách hàng thường, trạng thái hoạt động) với tên và email lấy từ Facebook.
+- **FR-004**: Khi khách đăng nhập Facebook lần đầu và chưa có tài khoản tương ứng, hệ thống MUST tự tạo tài khoản khách hàng (vai trò khách hàng thường, trạng thái hoạt động) với tên và email lấy từ Facebook. Nếu Facebook không cung cấp email, hệ thống MUST từ chối đăng nhập và không tạo tài khoản.
 - **FR-005**: Hệ thống MUST lưu định danh Facebook của khách để những lần đăng nhập sau nhận ra đúng tài khoản, kể cả khi khách đổi email trên Facebook.
 - **FR-006**: Hệ thống MUST không bao giờ tạo hai tài khoản cho cùng một định danh Facebook hoặc cùng một email.
 - **FR-007**: Khi email Facebook trùng với tài khoản đã có (đăng ký bằng mật khẩu hoặc Google), hệ thống MUST tự động đăng nhập vào tài khoản đó và gắn định danh Facebook vào tài khoản, không yêu cầu xác nhận thêm.
